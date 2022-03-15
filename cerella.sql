@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2022 at 04:16 AM
+-- Generation Time: Mar 15, 2022 at 07:06 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -156,11 +156,18 @@ CREATE TABLE `tipo_journal` (
 --
 
 CREATE TABLE `usuario` (
-  `userID` int(11) NOT NULL,
+  `usuarioID` int(11) NOT NULL,
   `Correo` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`usuarioID`, `Correo`, `password`, `username`) VALUES
+(1, 'coreo@correo.com', '123456', 'user1');
 
 -- --------------------------------------------------------
 
@@ -231,8 +238,8 @@ ALTER TABLE `post_en_foro`
 -- Indexes for table `post_por`
 --
 ALTER TABLE `post_por`
-  ADD KEY `usuarioID` (`usuarioID`,`postID`),
-  ADD KEY `postID` (`postID`);
+  ADD KEY `postID` (`postID`),
+  ADD KEY `usuarioID` (`usuarioID`);
 
 --
 -- Indexes for table `texto_journal`
@@ -252,14 +259,14 @@ ALTER TABLE `tipo_journal`
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`userID`);
+  ADD PRIMARY KEY (`usuarioID`);
 
 --
 -- Indexes for table `usuario_tiene_journal`
 --
 ALTER TABLE `usuario_tiene_journal`
-  ADD KEY `usuarioID` (`usuarioID`,`journalID`),
-  ADD KEY `journalID` (`journalID`);
+  ADD KEY `journalID` (`journalID`),
+  ADD KEY `usuarioID` (`usuarioID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -305,7 +312,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -340,8 +347,8 @@ ALTER TABLE `post_en_foro`
 -- Constraints for table `post_por`
 --
 ALTER TABLE `post_por`
-  ADD CONSTRAINT `post_por_ibfk_1` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `post_por_ibfk_2` FOREIGN KEY (`postID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `post_por_ibfk_2` FOREIGN KEY (`postID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `post_por_ibfk_3` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`usuarioID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `texto_journal`
@@ -357,16 +364,11 @@ ALTER TABLE `tipo_journal`
   ADD CONSTRAINT `tipo_journal_ibfk_2` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `usuario_tiene_journal` (`usuarioID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `usuario_tiene_journal`
 --
 ALTER TABLE `usuario_tiene_journal`
-  ADD CONSTRAINT `usuario_tiene_journal_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal` (`JournalID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuario_tiene_journal_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal` (`JournalID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuario_tiene_journal_ibfk_2` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`usuarioID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

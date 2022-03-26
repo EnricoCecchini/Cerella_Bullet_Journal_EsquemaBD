@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 15, 2022 at 07:06 PM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.2.32
+-- Servidor: localhost
+-- Tiempo de generación: 26-03-2022 a las 22:01:32
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cerella`
+-- Base de datos: `cerella`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria`
+-- Estructura de tabla para la tabla `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -32,10 +32,18 @@ CREATE TABLE `categoria` (
   `Descripcion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`CategoriaID`, `Descripcion`) VALUES
+(1, 'Cuidado Personal'),
+(2, 'Reflexión');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `foro`
+-- Estructura de tabla para la tabla `foro`
 --
 
 CREATE TABLE `foro` (
@@ -47,7 +55,7 @@ CREATE TABLE `foro` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `journal`
+-- Estructura de tabla para la tabla `journal`
 --
 
 CREATE TABLE `journal` (
@@ -59,7 +67,7 @@ CREATE TABLE `journal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `modificacion_texto`
+-- Estructura de tabla para la tabla `modificacion_texto`
 --
 
 CREATE TABLE `modificacion_texto` (
@@ -72,7 +80,29 @@ CREATE TABLE `modificacion_texto` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plantilla_categoria`
+-- Estructura de tabla para la tabla `pagina`
+--
+
+CREATE TABLE `pagina` (
+  `IDPagina` int(11) NOT NULL,
+  `liga` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pagina_plantilla`
+--
+
+CREATE TABLE `pagina_plantilla` (
+  `IDPlantilla` int(11) NOT NULL,
+  `IDPagina` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `plantilla_categoria`
 --
 
 CREATE TABLE `plantilla_categoria` (
@@ -83,7 +113,7 @@ CREATE TABLE `plantilla_categoria` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plantilla_journal`
+-- Estructura de tabla para la tabla `plantilla_journal`
 --
 
 CREATE TABLE `plantilla_journal` (
@@ -96,7 +126,7 @@ CREATE TABLE `plantilla_journal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post`
+-- Estructura de tabla para la tabla `post`
 --
 
 CREATE TABLE `post` (
@@ -108,7 +138,7 @@ CREATE TABLE `post` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post_en_foro`
+-- Estructura de tabla para la tabla `post_en_foro`
 --
 
 CREATE TABLE `post_en_foro` (
@@ -119,7 +149,7 @@ CREATE TABLE `post_en_foro` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post_por`
+-- Estructura de tabla para la tabla `post_por`
 --
 
 CREATE TABLE `post_por` (
@@ -130,7 +160,7 @@ CREATE TABLE `post_por` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `texto_journal`
+-- Estructura de tabla para la tabla `texto_journal`
 --
 
 CREATE TABLE `texto_journal` (
@@ -141,7 +171,7 @@ CREATE TABLE `texto_journal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_journal`
+-- Estructura de tabla para la tabla `tipo_journal`
 --
 
 CREATE TABLE `tipo_journal` (
@@ -152,7 +182,7 @@ CREATE TABLE `tipo_journal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -163,16 +193,19 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`usuarioID`, `Correo`, `password`, `username`) VALUES
-(1, 'coreo@correo.com', '123456', 'user1');
+(1, 'coreo@correo.com', '123456', 'user1'),
+(2, 'local@prueba.com', '12345667', 'user2'),
+(3, 'consuelo.jimenez@udem.edu', '1234567!A', 'usuariodeprueba'),
+(4, 'jemdelag@hotmail.com', 'ejemploPRUEBA2.', 'P1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario_tiene_journal`
+-- Estructura de tabla para la tabla `usuario_tiene_journal`
 --
 
 CREATE TABLE `usuario_tiene_journal` (
@@ -181,190 +214,216 @@ CREATE TABLE `usuario_tiene_journal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categoria`
+-- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`CategoriaID`);
 
 --
--- Indexes for table `foro`
+-- Indices de la tabla `foro`
 --
 ALTER TABLE `foro`
   ADD PRIMARY KEY (`ForoID`);
 
 --
--- Indexes for table `journal`
+-- Indices de la tabla `journal`
 --
 ALTER TABLE `journal`
   ADD PRIMARY KEY (`JournalID`);
 
 --
--- Indexes for table `modificacion_texto`
+-- Indices de la tabla `modificacion_texto`
 --
 ALTER TABLE `modificacion_texto`
   ADD PRIMARY KEY (`ModificacionID`);
 
 --
--- Indexes for table `plantilla_categoria`
+-- Indices de la tabla `pagina`
+--
+ALTER TABLE `pagina`
+  ADD PRIMARY KEY (`IDPagina`);
+
+--
+-- Indices de la tabla `pagina_plantilla`
+--
+ALTER TABLE `pagina_plantilla`
+  ADD KEY `IDPlantilla` (`IDPlantilla`,`IDPagina`),
+  ADD KEY `IDPagina` (`IDPagina`);
+
+--
+-- Indices de la tabla `plantilla_categoria`
 --
 ALTER TABLE `plantilla_categoria`
   ADD KEY `plantillaID` (`plantillaID`,`categoriaID`),
   ADD KEY `categoriaID` (`categoriaID`);
 
 --
--- Indexes for table `plantilla_journal`
+-- Indices de la tabla `plantilla_journal`
 --
 ALTER TABLE `plantilla_journal`
   ADD PRIMARY KEY (`PlantillaID`);
 
 --
--- Indexes for table `post`
+-- Indices de la tabla `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`PostID`);
 
 --
--- Indexes for table `post_en_foro`
+-- Indices de la tabla `post_en_foro`
 --
 ALTER TABLE `post_en_foro`
   ADD KEY `postID` (`postID`,`foroID`),
   ADD KEY `foroID` (`foroID`);
 
 --
--- Indexes for table `post_por`
+-- Indices de la tabla `post_por`
 --
 ALTER TABLE `post_por`
   ADD KEY `postID` (`postID`),
   ADD KEY `usuarioID` (`usuarioID`);
 
 --
--- Indexes for table `texto_journal`
+-- Indices de la tabla `texto_journal`
 --
 ALTER TABLE `texto_journal`
   ADD KEY `journalID` (`journalID`,`modificacionID`),
   ADD KEY `modificacionID` (`modificacionID`);
 
 --
--- Indexes for table `tipo_journal`
+-- Indices de la tabla `tipo_journal`
 --
 ALTER TABLE `tipo_journal`
   ADD KEY `journalID` (`journalID`,`plantillaID`),
   ADD KEY `plantillaID` (`plantillaID`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`usuarioID`);
 
 --
--- Indexes for table `usuario_tiene_journal`
+-- Indices de la tabla `usuario_tiene_journal`
 --
 ALTER TABLE `usuario_tiene_journal`
   ADD KEY `journalID` (`journalID`),
   ADD KEY `usuarioID` (`usuarioID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categoria`
+-- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `CategoriaID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CategoriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `foro`
+-- AUTO_INCREMENT de la tabla `foro`
 --
 ALTER TABLE `foro`
   MODIFY `ForoID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `journal`
+-- AUTO_INCREMENT de la tabla `journal`
 --
 ALTER TABLE `journal`
   MODIFY `JournalID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `modificacion_texto`
+-- AUTO_INCREMENT de la tabla `modificacion_texto`
 --
 ALTER TABLE `modificacion_texto`
   MODIFY `ModificacionID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `plantilla_journal`
+-- AUTO_INCREMENT de la tabla `pagina`
+--
+ALTER TABLE `pagina`
+  MODIFY `IDPagina` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `plantilla_journal`
 --
 ALTER TABLE `plantilla_journal`
   MODIFY `PlantillaID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `post`
+-- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
   MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `journal`
+-- Filtros para la tabla `journal`
 --
 ALTER TABLE `journal`
   ADD CONSTRAINT `journal_ibfk_1` FOREIGN KEY (`JournalID`) REFERENCES `texto_journal` (`journalID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `plantilla_categoria`
+-- Filtros para la tabla `pagina_plantilla`
+--
+ALTER TABLE `pagina_plantilla`
+  ADD CONSTRAINT `pagina_plantilla_ibfk_1` FOREIGN KEY (`IDPlantilla`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pagina_plantilla_ibfk_2` FOREIGN KEY (`IDPagina`) REFERENCES `pagina` (`IDPagina`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `plantilla_categoria`
 --
 ALTER TABLE `plantilla_categoria`
   ADD CONSTRAINT `plantilla_categoria_ibfk_1` FOREIGN KEY (`categoriaID`) REFERENCES `categoria` (`CategoriaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `plantilla_journal`
+-- Filtros para la tabla `plantilla_journal`
 --
 ALTER TABLE `plantilla_journal`
   ADD CONSTRAINT `plantilla_journal_ibfk_1` FOREIGN KEY (`PlantillaID`) REFERENCES `plantilla_categoria` (`plantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `post_en_foro`
+-- Filtros para la tabla `post_en_foro`
 --
 ALTER TABLE `post_en_foro`
   ADD CONSTRAINT `post_en_foro_ibfk_1` FOREIGN KEY (`foroID`) REFERENCES `foro` (`ForoID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `post_en_foro_ibfk_2` FOREIGN KEY (`postID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `post_por`
+-- Filtros para la tabla `post_por`
 --
 ALTER TABLE `post_por`
   ADD CONSTRAINT `post_por_ibfk_2` FOREIGN KEY (`postID`) REFERENCES `post` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `post_por_ibfk_3` FOREIGN KEY (`usuarioID`) REFERENCES `usuario` (`usuarioID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `texto_journal`
+-- Filtros para la tabla `texto_journal`
 --
 ALTER TABLE `texto_journal`
   ADD CONSTRAINT `texto_journal_ibfk_1` FOREIGN KEY (`modificacionID`) REFERENCES `modificacion_texto` (`ModificacionID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tipo_journal`
+-- Filtros para la tabla `tipo_journal`
 --
 ALTER TABLE `tipo_journal`
   ADD CONSTRAINT `tipo_journal_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal` (`JournalID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tipo_journal_ibfk_2` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuario_tiene_journal`
+-- Filtros para la tabla `usuario_tiene_journal`
 --
 ALTER TABLE `usuario_tiene_journal`
   ADD CONSTRAINT `usuario_tiene_journal_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal` (`JournalID`) ON DELETE CASCADE ON UPDATE CASCADE,

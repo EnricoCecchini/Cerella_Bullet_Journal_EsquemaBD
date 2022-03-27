@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2022 at 10:12 PM
+-- Generation Time: Mar 27, 2022 at 01:42 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -39,6 +39,27 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`CategoriaID`, `Descripcion`) VALUES
 (1, 'Cuidado Personal'),
 (2, 'Reflexión');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `codigo`
+--
+
+CREATE TABLE `codigo` (
+  `codigo` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `codigo_plantilla`
+--
+
+CREATE TABLE `codigo_plantilla` (
+  `codigo` varchar(16) NOT NULL,
+  `idPlantilla` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -226,6 +247,21 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`CategoriaID`);
 
 --
+-- Indexes for table `codigo`
+--
+ALTER TABLE `codigo`
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `codigo` (`codigo`),
+  ADD KEY `codigo_2` (`codigo`);
+
+--
+-- Indexes for table `codigo_plantilla`
+--
+ALTER TABLE `codigo_plantilla`
+  ADD KEY `codigo` (`codigo`,`idPlantilla`),
+  ADD KEY `idPlantilla` (`idPlantilla`);
+
+--
 -- Indexes for table `foro`
 --
 ALTER TABLE `foro`
@@ -371,6 +407,13 @@ ALTER TABLE `usuario`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `codigo_plantilla`
+--
+ALTER TABLE `codigo_plantilla`
+  ADD CONSTRAINT `codigo_plantilla_ibfk_1` FOREIGN KEY (`codigo`) REFERENCES `codigo` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `codigo_plantilla_ibfk_2` FOREIGN KEY (`idPlantilla`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `journal`

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2022 at 01:42 AM
+-- Generation Time: Mar 27, 2022 at 06:05 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -28,17 +28,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categoria` (
-  `CategoriaID` int(11) NOT NULL,
-  `Descripcion` varchar(50) NOT NULL
+  `categoriaID` int(11) NOT NULL,
+  `descripcion` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categoria`
 --
 
-INSERT INTO `categoria` (`CategoriaID`, `Descripcion`) VALUES
-(1, 'Cuidado Personal'),
-(2, 'Reflexión');
+INSERT INTO `categoria` (`categoriaID`, `descripcion`) VALUES
+(1, 'Reflexion'),
+(2, 'Cuidado Personal');
 
 -- --------------------------------------------------------
 
@@ -50,6 +50,17 @@ CREATE TABLE `codigo` (
   `codigo` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `codigo`
+--
+
+INSERT INTO `codigo` (`codigo`) VALUES
+('8wXHwqJRXrHBdoIu'),
+('HUsfotlWv6AqBjhu'),
+('LsNKpPKKEI9oOuIv'),
+('PnnkkAHvrzAtoFOZ'),
+('xo7K2IT24jAHS8dt');
+
 -- --------------------------------------------------------
 
 --
@@ -58,8 +69,15 @@ CREATE TABLE `codigo` (
 
 CREATE TABLE `codigo_plantilla` (
   `codigo` varchar(16) NOT NULL,
-  `idPlantilla` int(11) NOT NULL
+  `plantillaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `codigo_plantilla`
+--
+
+INSERT INTO `codigo_plantilla` (`codigo`, `plantillaID`) VALUES
+('8wXHwqJRXrHBdoIu', 2);
 
 -- --------------------------------------------------------
 
@@ -110,6 +128,13 @@ CREATE TABLE `pagina` (
   `numPagina` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pagina`
+--
+
+INSERT INTO `pagina` (`IDPagina`, `liga`, `numPagina`) VALUES
+(1, 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -117,9 +142,36 @@ CREATE TABLE `pagina` (
 --
 
 CREATE TABLE `pagina_plantilla` (
-  `IDPlantilla` int(11) NOT NULL,
+  `plantillaID` int(11) NOT NULL,
   `IDPagina` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pagina_plantilla`
+--
+
+INSERT INTO `pagina_plantilla` (`plantillaID`, `IDPagina`) VALUES
+(2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plantilla`
+--
+
+CREATE TABLE `plantilla` (
+  `plantillaID` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Imagen` varchar(300) NOT NULL,
+  `Descripcion` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `plantilla`
+--
+
+INSERT INTO `plantilla` (`plantillaID`, `Nombre`, `Imagen`, `Descripcion`) VALUES
+(2, 'Prueba 1', 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg', 'Prueba 1');
 
 -- --------------------------------------------------------
 
@@ -132,6 +184,13 @@ CREATE TABLE `plantilla_categoria` (
   `categoriaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `plantilla_categoria`
+--
+
+INSERT INTO `plantilla_categoria` (`plantillaID`, `categoriaID`) VALUES
+(2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -139,10 +198,8 @@ CREATE TABLE `plantilla_categoria` (
 --
 
 CREATE TABLE `plantilla_journal` (
-  `PlantillaID` int(11) NOT NULL,
-  `Nombre` varchar(255) NOT NULL,
-  `Imagen` longblob NOT NULL,
-  `Descripcion` varchar(500) NOT NULL
+  `journalID` int(11) NOT NULL,
+  `plantillaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -193,17 +250,6 @@ CREATE TABLE `texto_journal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_journal`
---
-
-CREATE TABLE `tipo_journal` (
-  `journalID` int(11) NOT NULL,
-  `plantillaID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `usuario`
 --
 
@@ -244,7 +290,7 @@ CREATE TABLE `usuario_tiene_journal` (
 -- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`CategoriaID`);
+  ADD PRIMARY KEY (`categoriaID`);
 
 --
 -- Indexes for table `codigo`
@@ -258,8 +304,8 @@ ALTER TABLE `codigo`
 -- Indexes for table `codigo_plantilla`
 --
 ALTER TABLE `codigo_plantilla`
-  ADD KEY `codigo` (`codigo`,`idPlantilla`),
-  ADD KEY `idPlantilla` (`idPlantilla`);
+  ADD KEY `codigo` (`codigo`,`plantillaID`),
+  ADD KEY `plantillaID` (`plantillaID`);
 
 --
 -- Indexes for table `foro`
@@ -289,8 +335,14 @@ ALTER TABLE `pagina`
 -- Indexes for table `pagina_plantilla`
 --
 ALTER TABLE `pagina_plantilla`
-  ADD KEY `IDPlantilla` (`IDPlantilla`,`IDPagina`),
+  ADD KEY `IDPlantilla` (`plantillaID`,`IDPagina`),
   ADD KEY `IDPagina` (`IDPagina`);
+
+--
+-- Indexes for table `plantilla`
+--
+ALTER TABLE `plantilla`
+  ADD PRIMARY KEY (`plantillaID`);
 
 --
 -- Indexes for table `plantilla_categoria`
@@ -303,7 +355,8 @@ ALTER TABLE `plantilla_categoria`
 -- Indexes for table `plantilla_journal`
 --
 ALTER TABLE `plantilla_journal`
-  ADD PRIMARY KEY (`PlantillaID`);
+  ADD KEY `journalID` (`journalID`,`plantillaID`),
+  ADD KEY `plantillaID` (`plantillaID`);
 
 --
 -- Indexes for table `post`
@@ -333,13 +386,6 @@ ALTER TABLE `texto_journal`
   ADD KEY `modificacionID` (`modificacionID`);
 
 --
--- Indexes for table `tipo_journal`
---
-ALTER TABLE `tipo_journal`
-  ADD KEY `journalID` (`journalID`,`plantillaID`),
-  ADD KEY `plantillaID` (`plantillaID`);
-
---
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
@@ -360,7 +406,7 @@ ALTER TABLE `usuario_tiene_journal`
 -- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `CategoriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `categoriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `foro`
@@ -384,13 +430,13 @@ ALTER TABLE `modificacion_texto`
 -- AUTO_INCREMENT for table `pagina`
 --
 ALTER TABLE `pagina`
-  MODIFY `IDPagina` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDPagina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `plantilla_journal`
+-- AUTO_INCREMENT for table `plantilla`
 --
-ALTER TABLE `plantilla_journal`
-  MODIFY `PlantillaID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `plantilla`
+  MODIFY `plantillaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -413,7 +459,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `codigo_plantilla`
   ADD CONSTRAINT `codigo_plantilla_ibfk_1` FOREIGN KEY (`codigo`) REFERENCES `codigo` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `codigo_plantilla_ibfk_2` FOREIGN KEY (`idPlantilla`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `codigo_plantilla_ibfk_2` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla` (`plantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `journal`
@@ -425,20 +471,22 @@ ALTER TABLE `journal`
 -- Constraints for table `pagina_plantilla`
 --
 ALTER TABLE `pagina_plantilla`
-  ADD CONSTRAINT `pagina_plantilla_ibfk_1` FOREIGN KEY (`IDPlantilla`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pagina_plantilla_ibfk_2` FOREIGN KEY (`IDPagina`) REFERENCES `pagina` (`IDPagina`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pagina_plantilla_ibfk_2` FOREIGN KEY (`IDPagina`) REFERENCES `pagina` (`IDPagina`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pagina_plantilla_ibfk_3` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla` (`plantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `plantilla_categoria`
 --
 ALTER TABLE `plantilla_categoria`
-  ADD CONSTRAINT `plantilla_categoria_ibfk_1` FOREIGN KEY (`categoriaID`) REFERENCES `categoria` (`CategoriaID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `plantilla_categoria_ibfk_1` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla` (`plantillaID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `plantilla_categoria_ibfk_2` FOREIGN KEY (`categoriaID`) REFERENCES `categoria` (`categoriaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `plantilla_journal`
 --
 ALTER TABLE `plantilla_journal`
-  ADD CONSTRAINT `plantilla_journal_ibfk_1` FOREIGN KEY (`PlantillaID`) REFERENCES `plantilla_categoria` (`plantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `plantilla_journal_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal` (`JournalID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `plantilla_journal_ibfk_2` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post_en_foro`
@@ -459,13 +507,6 @@ ALTER TABLE `post_por`
 --
 ALTER TABLE `texto_journal`
   ADD CONSTRAINT `texto_journal_ibfk_1` FOREIGN KEY (`modificacionID`) REFERENCES `modificacion_texto` (`ModificacionID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tipo_journal`
---
-ALTER TABLE `tipo_journal`
-  ADD CONSTRAINT `tipo_journal_ibfk_1` FOREIGN KEY (`journalID`) REFERENCES `journal` (`JournalID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tipo_journal_ibfk_2` FOREIGN KEY (`plantillaID`) REFERENCES `plantilla_journal` (`PlantillaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuario_tiene_journal`

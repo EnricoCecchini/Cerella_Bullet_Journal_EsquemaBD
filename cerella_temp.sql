@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2022 at 03:09 AM
+-- Generation Time: Apr 14, 2022 at 03:09 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -58,10 +58,15 @@ CREATE TABLE `journal` (
 --
 
 INSERT INTO `journal` (`codigo`, `titulo`, `descripcion`, `portada`) VALUES
-('1a1a1a1a1a1a1a1a', 'Prueba1', 0, 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg'),
-('2a2a2a2a2a2a2a2a', 'Prueba 2', 0, 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg'),
-('3a3a3a3a3a3a3a3a', 'Prueba 69', 0, 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg'),
-('4a4a4a4a4a4a4a4a', 'Prueba1', 0, 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg');
+('1a1a1a1a1a1a1a1a', 'Prueba1', 0, 'prueba_1/pg1.jpg'),
+('2a2a2a2a2a2a2a2a', 'Prueba 2', 0, 'prueba_1/pg1.jpg'),
+('3a3a3a3a3a3a3a3a', 'Prueba 69', 0, 'prueba_1/pg1.jpg'),
+('4a4a4a4a4a4a4a4a', 'Titulo Gracioso', 0, 'prueba_1/pg1.jpg'),
+('64rjEMcavq35JaVG', 'Prueba 1', 0, 'prueba_1/pg1.jpg'),
+('IafMh5UeHp9js34J', 'Prueba 2', 0, 'prueba_2/pg1.jpg'),
+('P40rgJUeZrZwMhR1', 'Prueba 2', 0, 'prueba_2/pg1.jpg'),
+('UgBO99NnwhSak8fE', 'Prueba 1', 0, 'prueba_1/pg1.jpg'),
+('XL7Tuj8ERhXu3xYR', 'Prueba 1', 0, 'prueba_1/pg1.jpg');
 
 -- --------------------------------------------------------
 
@@ -119,7 +124,9 @@ CREATE TABLE `plantilla` (
 --
 
 INSERT INTO `plantilla` (`plantillaID`, `nombre`, `portada`, `precio`, `descripcion`) VALUES
-(1, 'Prueba 1', 'https://sportshub.cbsistatic.com/i/2021/08/09/b5066a42-3bef-414c-b5ce-8022c6e33a5b/moon-knight-4-cover-header-1276285.jpg', 69.99, 'Prueba 1');
+(1, 'Prueba 1', 'prueba_1/pg1.jpg', 69.99, 'Prueba 1'),
+(2, 'Prueba 2', 'prueba_2/pg1.jpg', 42, 'Prueba 2'),
+(3, 'Prueba 3', 'prueba_3/pg1.jpg', 69.42, 'Prueba 3');
 
 -- --------------------------------------------------------
 
@@ -137,7 +144,9 @@ CREATE TABLE `plantilla_categoria` (
 --
 
 INSERT INTO `plantilla_categoria` (`plantillaID`, `categoriaID`) VALUES
-(1, 2);
+(1, 2),
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -179,7 +188,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usuarioID`, `username`, `correo`, `password`) VALUES
-(1, 'lisi6', 'lisi@lisimail.com', 'Mipassw0rd.');
+(1, 'lisi6', 'lisi@lisimail.com', 'Mipassw0rd.'),
+(2, 'desli', 'deslizabet@caida.com', 'Mipassw0rd.');
 
 -- --------------------------------------------------------
 
@@ -199,7 +209,13 @@ CREATE TABLE `usuario_journal` (
 INSERT INTO `usuario_journal` (`usuarioID`, `codigo`) VALUES
 (1, '1a1a1a1a1a1a1a1a'),
 (1, '2a2a2a2a2a2a2a2a'),
-(1, '3a3a3a3a3a3a3a3a');
+(1, '3a3a3a3a3a3a3a3a'),
+(1, '64rjEMcavq35JaVG'),
+(1, 'IafMh5UeHp9js34J'),
+(1, 'P40rgJUeZrZwMhR1'),
+(1, 'UgBO99NnwhSak8fE'),
+(1, 'XL7Tuj8ERhXu3xYR'),
+(2, '4a4a4a4a4a4a4a4a');
 
 --
 -- Indexes for dumped tables
@@ -302,13 +318,13 @@ ALTER TABLE `pagina`
 -- AUTO_INCREMENT for table `plantilla`
 --
 ALTER TABLE `plantilla`
-  MODIFY `plantillaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `plantillaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuarioID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

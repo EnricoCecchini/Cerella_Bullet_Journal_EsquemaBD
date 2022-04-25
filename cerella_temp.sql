@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2022 at 03:09 AM
+-- Generation Time: Apr 25, 2022 at 06:01 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -58,15 +58,8 @@ CREATE TABLE `journal` (
 --
 
 INSERT INTO `journal` (`codigo`, `titulo`, `descripcion`, `portada`) VALUES
-('1a1a1a1a1a1a1a1a', 'Prueba1', 0, 'prueba_1/pg1.jpg'),
-('2a2a2a2a2a2a2a2a', 'Prueba 2', 0, 'prueba_1/pg1.jpg'),
-('3a3a3a3a3a3a3a3a', 'Prueba 69', 0, 'prueba_1/pg1.jpg'),
-('4a4a4a4a4a4a4a4a', 'Titulo Gracioso', 0, 'prueba_1/pg1.jpg'),
-('64rjEMcavq35JaVG', 'Prueba 1', 0, 'prueba_1/pg1.jpg'),
-('IafMh5UeHp9js34J', 'Prueba 2', 0, 'prueba_2/pg1.jpg'),
-('P40rgJUeZrZwMhR1', 'Prueba 2', 0, 'prueba_2/pg1.jpg'),
-('UgBO99NnwhSak8fE', 'Prueba 1', 0, 'prueba_1/pg1.jpg'),
-('XL7Tuj8ERhXu3xYR', 'Prueba 1', 0, 'prueba_1/pg1.jpg');
+('H6MUIAzomdf7g3JW', 'Prueba 69', 0, 'prueba_3/pg1.jpg'),
+('zAQQfbjPi37ITZn6', 'Prueba pp', 0, 'prueba_1/pg1.jpg');
 
 -- --------------------------------------------------------
 
@@ -104,6 +97,17 @@ CREATE TABLE `pagina` (
   `numPagina` int(11) NOT NULL,
   `urlPagina` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pagina`
+--
+
+INSERT INTO `pagina` (`paginaID`, `numPagina`, `urlPagina`) VALUES
+(1, 1, 'prueba_1/pg1.jpg'),
+(2, 1, 'prueba_2/pg1.jpg'),
+(3, 1, 'prueba_3/pg1.jpg'),
+(4, 2, 'prueba_1/pg2.jpg'),
+(5, 3, 'prueba_1/pg3.jpg');
 
 -- --------------------------------------------------------
 
@@ -159,6 +163,14 @@ CREATE TABLE `plantilla_journal` (
   `plantillaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `plantilla_journal`
+--
+
+INSERT INTO `plantilla_journal` (`codigo`, `plantillaID`) VALUES
+('H6MUIAzomdf7g3JW', 3),
+('zAQQfbjPi37ITZn6', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -169,6 +181,18 @@ CREATE TABLE `plantilla_pagina` (
   `plantillaID` int(11) NOT NULL,
   `paginaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `plantilla_pagina`
+--
+
+INSERT INTO `plantilla_pagina` (`plantillaID`, `paginaID`) VALUES
+(1, 1),
+(1, 4),
+(1, 5),
+(2, 2),
+(3, 3),
+(3, 4);
 
 -- --------------------------------------------------------
 
@@ -207,15 +231,8 @@ CREATE TABLE `usuario_journal` (
 --
 
 INSERT INTO `usuario_journal` (`usuarioID`, `codigo`) VALUES
-(1, '1a1a1a1a1a1a1a1a'),
-(1, '2a2a2a2a2a2a2a2a'),
-(1, '3a3a3a3a3a3a3a3a'),
-(1, '64rjEMcavq35JaVG'),
-(1, 'IafMh5UeHp9js34J'),
-(1, 'P40rgJUeZrZwMhR1'),
-(1, 'UgBO99NnwhSak8fE'),
-(1, 'XL7Tuj8ERhXu3xYR'),
-(2, '4a4a4a4a4a4a4a4a');
+(1, 'H6MUIAzomdf7g3JW'),
+(1, 'zAQQfbjPi37ITZn6');
 
 --
 -- Indexes for dumped tables
@@ -312,7 +329,7 @@ ALTER TABLE `modificacion`
 -- AUTO_INCREMENT for table `pagina`
 --
 ALTER TABLE `pagina`
-  MODIFY `paginaID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `paginaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `plantilla`
